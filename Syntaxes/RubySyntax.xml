@@ -11,6 +11,7 @@
     matching rules).
   -->
   <zones>
+    <include collection="literal.array"/>
     <include collection="delimiter"/>
     <include collection="container.expression.parenthetical"/>
     <include collection="metadata.comment.header"/>
@@ -532,6 +533,34 @@
         <expression>\bnil\b</expression>
       </zone>
     </collection>
+    
+    <collection name="literal.array">
+      <zone name="literal.array">
+        <starts-with>\[</starts-with>
+        <ends-with>\]</ends-with>
+        <subzones>
+          <zone name="comma.delimiter">
+            <expression>,</expression>
+          </zone>
+          <include collection="literal.array"/>
+          <include collection="delimiter"/>
+          <include collection="container.expression.parenthetical"/>
+          <include collection="metadata.comment.header"/>
+          <include collection="metadata.comment"/>
+          <include collection="literal.string.heredoc"/>
+          <include collection="keyword.control"/>
+          <include collection="literal.keyword"/>
+          <include collection="container.block"/>
+          <include collection="container.function"/>
+          <include collection="identifier.variable"/>
+          <include collection="literal.string"/>
+          <include collection="literal.regex"/>
+          <include collection="literal.numeric"/>
+          <include collection="operator"/>
+        </subzones>
+      </zone>
+    </collection>
+  
     
     <!-- ===============
          = Identifiers =
