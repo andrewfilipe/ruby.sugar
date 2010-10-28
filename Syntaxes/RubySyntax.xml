@@ -538,27 +538,61 @@
     
     <collection name="literal.array">
       <zone name="literal.array">
-        <starts-with>\[</starts-with>
-        <ends-with>\]</ends-with>
+        <starts-with>\[(?!\]\()</starts-with>
+        <ends-with>\](?!\()</ends-with>
         <subzones>
           <zone name="comma.delimiter">
             <expression>,</expression>
           </zone>
-          <include collection="literal.array"/>
-          <include collection="delimiter"/>
-          <include collection="container.expression.parenthetical"/>
-          <include collection="metadata.comment.header"/>
-          <include collection="metadata.comment"/>
-          <include collection="literal.string.heredoc"/>
-          <include collection="keyword.control"/>
-          <include collection="literal.keyword"/>
-          <include collection="container.block"/>
-          <include collection="container.function"/>
-          <include collection="identifier.variable"/>
-          <include collection="literal.string"/>
-          <include collection="literal.regex"/>
-          <include collection="literal.numeric"/>
-          <include collection="operator"/>
+          <include syntax="name.elliottcable.Espresso.Syntax.Programming.Ruby"/>
+        </subzones>
+      </zone>
+      
+      <zone name="literal.array.percent-delimited.curly-brace">
+        <start-with>
+          <expression>(%)(W|w)(\{)</expression>
+          <capture number="1" name="delimiter.literal.percent-delimiter"/>
+          <capture number="2" name="delimiter.literal.percent-delimited.qualifier"/>
+          <capture number="3" name="delimiter.balanced.percent-delimited.begin"/>
+        </start-with>
+        <ends-with>
+          <expression>(\})</expression>
+          <capture number="1" name="delimiter.literal.percent-delimited.end"/>
+        </ends-with>
+        <subzones>
+          <include collection="subzones.literal.interpolated"/>
+        </subzones>
+      </zone>
+      
+      <zone name="literal.array.percent-delimited.non-interpolated.parenthesis">
+        <starts-with>
+          <expression>(%)(w)(\()</expression>
+          <capture number="1" name="delimiter.literal.percent-delimiter"/>
+          <capture number="2" name="delimiter.literal.percent-delimited.qualifier"/>
+          <capture number="3" name="delimiter.balanced.percent-delimited.begin"/>
+        </starts-with>
+        <ends-with>
+          <expression>(\))</expression>
+          <capture number="1" name="delimiter.literal.percent-delimited.end"/>
+        </ends-with>
+        <subzones>
+          <!--<include collection="subzones.literal.non-interpolated"/>-->
+        </subzones>
+      </zone>
+      
+      <zone name="literal.array.percent-delimited.interpolated.parenthesis">
+        <starts-with>
+          <expression>(%)(W)(\()</expression>
+          <capture number="1" name="delimiter.literal.percent-delimiter"/>
+          <capture number="2" name="delimiter.literal.percent-delimited.qualifier"/>
+          <capture number="3" name="delimiter.balanced.percent-delimited.begin"/>
+        </starts-with>
+        <ends-with>
+          <expression>(\))</expression>
+          <capture number="1" name="delimiter.literal.percent-delimited.end"/>
+        </ends-with>
+        <subzones>
+          <!--<include collection="subzones.literal.interpolated"/>-->
         </subzones>
       </zone>
     </collection>
@@ -570,28 +604,14 @@
       -->
       <zone name="literal.hash">
         <!-- really not ideal, should maybe look at changing way blocks are handled -->
-        <starts-with>^(.*=\s*|\s*)\{</starts-with>
+        <!--<starts-with>^(.*=\s*|\s*)\{</starts-with>-->
+        <starts-with>\{</starts-with>
         <ends-with>\}</ends-with>
         <subzones>
           <zone name="rocket.delimiter">
             <expression>=></expression>
           </zone>
-          <include collection="literal.hash"/>
-          <include collection="literal.array"/>
-          <include collection="delimiter"/>
-          <include collection="container.expression.parenthetical"/>
-          <include collection="metadata.comment.header"/>
-          <include collection="metadata.comment"/>
-          <include collection="literal.string.heredoc"/>
-          <include collection="keyword.control"/>
-          <include collection="literal.keyword"/>
-          <include collection="container.block"/>
-          <include collection="container.function"/>
-          <include collection="identifier.variable"/>
-          <include collection="literal.string"/>
-          <include collection="literal.regex"/>
-          <include collection="literal.numeric"/>
-          <include collection="operator"/>
+          <include syntax="name.elliottcable.Espresso.Syntax.Programming.Ruby"/>
         </subzones>
       </zone>
     </collection>
@@ -760,6 +780,62 @@
     </collection>
     
     <collection name="container.block">
+      <zone name="container.block.keyword-delimited">
+        <starts-with>
+          <expression>([a-zA-Z0-9!?]*)\s*(do)</expression>
+          <capture number="1" name="method.name"/>
+          <capture number="2" name="keyword.control.flow.block.begin"/>
+        </starts-with>
+        <ends-with>
+          <expression>end</expression>
+          <capture number="0" name="keyword.control.flow.block.end"/>
+        </ends-with>
+        <subzones>
+          <zone name="parameters.block">
+            <starts-with>
+              <expression>\|</expression>
+              <capture number="0" name="delimiter.balanced.bar.parameters.block.begin"/>
+            </starts-with>
+            <ends-with>
+              <expression>\|</expression>
+              <capture number="0" name="delimited.balanced.bar.parameters.block.end"/>
+            </ends-with>
+            <subzones>
+              <include collection="identifier.variable.parameter"/>
+            </subzones>
+          </zone>
+          <include syntax="name.elliottcable.Espresso.Syntax.Programming.Ruby"/>
+        </subzones>
+      </zone>
+      
+      <zone name="container.block.bracket-delimited">
+        <starts-with>
+          <expression>([a-zA-Z0-9!?]+)\s*(\{)</expression>
+          <capture number="1" name="method.name"/>
+          <capture number="2" name="delimiter.balanced.curly-brace.begin"/>
+        </starts-with>
+        <ends-with>
+          <expression>\}</expression>
+          <capture number="0" name="delimiter.balanced.curly-brace.end"/>
+        </ends-with>
+        <subzones>
+          <zone name="parameters.block">
+            <starts-with>
+              <expression>\|</expression>
+              <capture number="0" name="delimiter.balanced.bar.parameters.block.begin"/>
+            </starts-with>
+            <ends-with>
+              <expression>\|</expression>
+              <capture number="0" name="delimited.balanced.bar.parameters.block.end"/>
+            </ends-with>
+            <subzones>
+              <include collection="identifier.variable.parameter"/>
+            </subzones>
+          </zone>
+          <include syntax="name.elliottcable.Espresso.Syntax.Programming.Ruby"/>
+        </subzones>
+      </zone>
+    
       <!--
         For now, due to the intricacies of keyword-delimited blocks versus
         bracket-delimited blocks, as well as those of blocks with arguments

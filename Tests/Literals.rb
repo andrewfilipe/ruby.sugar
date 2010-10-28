@@ -5,6 +5,7 @@
 :'stringbol'
 :"dstringbol"
 
+# arrays
 ["an array", "of", 4, "items"]
 
 [
@@ -18,7 +19,15 @@
   ]
 ]
 
+def [](not an array)
+end
+
+something[5] # not an array!
+
+
+
 hey = 5
+hash = {:a => "dog"}
 {
   "key" => :value,
   "what" => 10,
@@ -28,3 +37,14 @@ hey = 5
 }
 
 [:a, :b, :c].each {|i| puts i } # shouldn’t be hash!
+
+#%w(#{what})
+#%w{#{what}}
+#%W(#{what})
+#%W{#{what}}
+
+configure do |a, b|
+  puts "hi"
+end
+
+configure {|a, b| puts "hi" }
