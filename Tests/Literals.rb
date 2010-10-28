@@ -22,9 +22,10 @@
 def [](not an array)
 end
 
+
+
 something[5] # not an array!
-
-
+method.call(x)
 
 hey = 5
 hash = {:a => "dog"}
@@ -38,13 +39,13 @@ hash = {:a => "dog"}
 
 [:a, :b, :c].each {|i| puts i } # shouldn’t be hash!
 
-#%w(#{what})
-#%w{#{what}}
-#%W(#{what})
-#%W{#{what}}
+%w(#{what}hey)
+%w{hey}
+%W(#{what})
+%W{#{what}}
 
 configure do |a, b|
   puts "hi"
 end
 
-configure(x) {|a, b| puts "hi" }
+configure(x, b) {|a, b| puts "hi" }
