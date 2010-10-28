@@ -47,4 +47,4 @@ configure do |a, b|
   puts "hi"
 end
 
-configure {|a, b| puts "hi" }
+configure(x) {|a, b| puts "hi" }

@@ -810,7 +810,7 @@
       
       <zone name="container.block.bracket-delimited">
         <starts-with>
-          <expression>([a-zA-Z0-9!?]+)\s*(\{)</expression>
+          <expression>([a-zA-Z0-9!?()]+)\s*(\{)</expression>
           <capture number="1" name="method.name"/>
           <capture number="2" name="delimiter.balanced.curly-brace.begin"/>
         </starts-with>
