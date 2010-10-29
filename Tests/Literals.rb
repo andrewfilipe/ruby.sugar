@@ -23,7 +23,6 @@ def [](not an array)
 end
 
 
-
 something[5] # not an array!
 method.call(x)
 

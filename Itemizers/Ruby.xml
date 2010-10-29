@@ -1,40 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <itemizer>
 
+  <recipe name="constant">
+    <class>ESBaseItem</class>
+    <selector>identifier.variable.constant:has-child(name:capture(name))</selector>
+  </recipe>
+  
+  <recipe name="class-variable">
+    <class>ESBaseItem</class>
+    <selector>identifier.variable.class:has-child(name:capture(name))</selector>
+  </recipe>
+  
+  <recipe name="instance-variable">
+    <class>ESBaseItem</class>
+    <selector>identifier.variable.instance:has-child(name:capture(name))</selector>
+  </recipe>
+  
+  
+  <recipe name="class">
+    <class>ESXHTMLItem</class>
+    <start-selector>class.begin + name:capture(name)</start-selector>
+    <end-selector>class.end</end-selector>
+    
+    <subrecipes>
+      <include-root-recipes/>
+    </subrecipes>
+  </recipe>
+  
+  <recipe name="module">
+    <class>ESBaseItem</class>
+    <start-selector>module.begin + name:capture(name)</start-selector>
+    <end-selector>module.end</end-selector>
+    
+    <subrecipes>
+      <include-root-recipes/>
+    </subrecipes>
+  </recipe>
+  
   <recipe name="method">
-    <start-selector>method.declaration:has-child(method.name:capture(name))</start-selector>
-    <end-selector>keyword.flow-control.end</end-selector>
-    
-    <subrecipes>
-      <include-root-recipes/>
-    </subrecipes>
-  </recipe>
-
-	<recipe name="container.function.whitespace-delimited">
-    <start-selector>container.function.whitespace-delimited:has-child(name:capture(name)), container.function.parenthesis-delimited:has-child(name:capture(name))</start-selector>
-    <end-selector>keyword.control.flow.end</end-selector>
-    
-    <subrecipes>
-      <include-root-recipes/>
-    </subrecipes>
-	</recipe>
-  
-  <recipe name="block.keyword-delimited">
-    <start-selector>container.block.keyword-delimited.without-arguments:has-child(keyword.control.flow.block.begin), container.block.keyword-delimited.with-arguments:has-child(keyword.control.flow.block.begin)</start-selector>
-    <end-selector>keyword.control.flow.end</end-selector>
-    <subrecipes>
-      <include-root-recipes/>
-    </subrecipes>
-  </recipe>
-  
-  <recipe name="block.bracket-delimited">
-    <!-- This should really be more exact, instead of catching all opening curly braces. -->
-    <start-selector>delimiter.balanced.curly-brace.begin</start-selector>
-    <end-selector>delimiter.balanced.curly-brace.end</end-selector>
-    
-    <subrecipes>
-      <include-root-recipes/>
-    </subrecipes>
+    <class>ESBaseItem</class>
+    <start-selector>method.begin + name:capture(name)</start-selector>
+    <end-selector>method.end</end-selector>
   </recipe>
   
 </itemizer>

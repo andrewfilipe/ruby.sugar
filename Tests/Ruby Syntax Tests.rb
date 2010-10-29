@@ -3,20 +3,24 @@
 #########
 #basics
 
+CONST = "help"
+
 module samwi_78se
-	
+
 	class mysuperclassofdoom < someotherclass
 
 	end
 end
 
 class gallo_way8 < kni9_ght
+  @hey = 5
   
   def sl_9ay(beast)
     
   end
 
-  #These shouldn't capture the leading space before it
+  # These shouldn't capture the leading space before it
+  # 
   def my_method_of_doom(args)
     'yay'
   rescue
@@ -29,6 +33,17 @@ class gallo_way8 < kni9_ght
   
   #The indent here should not be broken
   
+end
+
+class TestClass < Hey
+
+  module TestModule
+  
+    def test?(val)
+      val.nil?
+    end
+  
+  end
 end
 
 
@@ -180,6 +195,40 @@ data += 0.chr
 
 
 ###########
+# arrays
+
+[1, 2, 3]
+[
+  [
+    [
+      [
+        1
+      ], 
+      2
+    ], 
+    3
+  ],
+  4
+]
+
+
+##########
+# hashes
+{:key => 'value'}
+
+{
+  :nesting => {
+    :again => {
+      :and => {
+        :again => {
+          'value' => 595
+        }
+      }
+    }
+  }
+}
+
+###########
 # strings 
 
 'hello #{42} wor\'knjkld'		# no interpolation or escapes except for slash-single-quote
@@ -205,8 +254,8 @@ data += 0.chr
 %Q!dude#{hey}!
 %W(dude#{hey})
 %q!dude#{hey}!
-%s{dude#{hey}}
-%w{dude#{hey}}
+%s{dude#{hey}
+%W{dude#{hey}}
 %{woah#{hey}}
 % woah#{hey} 
 

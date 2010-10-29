@@ -11,11 +11,21 @@
     matching rules).
   -->
   <zones>
+    <!--<zone name="end-of-file">
+      <starts-with>
+        <expression>__END__</expression>
+      </starts-with>
+      <ends-with>
+        <expression>NULL</expression>
+      </ends-with>
+    </zone>-->
+  
     <include collection="literal.array"/>
     <include collection="literal.hash"/>
     
     <include collection="delimiter"/>
     <include collection="container.expression.parenthetical"/>
+    <include collection="container.class-module"/>
     <include collection="metadata.comment.header"/>
     <include collection="metadata.comment"/>
     <include collection="literal.string.heredoc"/>
@@ -351,7 +361,7 @@
         </starts-with>
         <ends-with>
           <expression>\2</expression>
-          <capture number="0" name="heredoc.name"/>
+          <capture number="0" name="heredoc.name.end"/>
         </ends-with>
       </zone>
       <zone name="literal.string.heredoc.quoted">
@@ -364,7 +374,7 @@
         </starts-with>
         <ends-with>
           <expression>\3</expression>
-          <capture number="0" name="heredoc.name"/>
+          <capture number="0" name="heredoc.name.end"/>
         </ends-with>
       </zone>
     </collection>
@@ -538,8 +548,14 @@
     
     <collection name="literal.array">
       <zone name="literal.array">
-        <starts-with>\[(?!\]\()</starts-with>
-        <ends-with>\](?!\()</ends-with>
+        <starts-with>
+          <expression>\[(?!\]\()</expression>
+          <capture number="0" name="delimiter.square-bracket.array.begin"/>
+        </starts-with>
+        <ends-with>
+          <expression>\](?!\()</expression>
+          <capture number="0" name="delimiter.square-bracket.array.end"/>
+        </ends-with>
         <subzones>
           <zone name="comma.delimiter">
             <expression>,</expression>
@@ -639,8 +655,14 @@
       <zone name="literal.hash">
         <!-- really not ideal, should maybe look at changing way blocks are handled -->
         <!--<starts-with>^(.*=\s*|\s*)\{</starts-with>-->
-        <starts-with>\{</starts-with>
-        <ends-with>\}</ends-with>
+        <starts-with>
+          <expression>\{</expression>
+          <capture number="0" name="delimiter.curly-brace.hash.begin"/>
+        </starts-with>
+        <ends-with>
+          <expression>\}</expression>
+          <capture number="0" name="delimiter.curly-brace.hash.end"/>
+        </ends-with>
         <subzones>
           <zone name="rocket.delimiter">
             <expression>=></expression>
@@ -661,11 +683,6 @@
         <expression>[A-Z][A-Za-z0-9_]*</expression>
         <capture number="0" name="constant.name"/>
       </zone>
-      <!-- var -->
-      <zone name="identifier.variable.local">
-        <expression>[a-z_][A-Za-z0-9_]*</expression>
-        <capture number="0" name="variable.name"/>
-      </zone>
       <!-- @var -->
       <zone name="identifier.variable.instance">
         <expression>@([A-Za-z0-9_]*)</expression>
@@ -680,6 +697,11 @@
       <zone name="identifier.variable.global">
         <expression>\$(.|-[A-Za-z0-9_]|[A-Za-z0-9_]*)</expression>
         <capture number="1" name="variable.name"/>
+      </zone>
+      <!-- var -->
+      <zone name="identifier.variable.local">
+        <expression>[a-z_][A-Za-z0-9_]*</expression>
+        <capture number="0" name="variable.name"/>
       </zone>
     </collection>
     
@@ -774,6 +796,34 @@
     </collection>
     
     <collection name="container.function">
+      <zone name="container.function.parenthesis-delimited">      
+        <starts-with>
+          <expression>\b(def)\s+([a-zA-Z_\[][\.A-Za-z0-9_\]]*[\?\!\=]?)</expression>
+          <capture number="1" name="keyword.definition.method.begin"/>
+          <capture number="2" name="name"/>
+        </starts-with>
+        <ends-with>
+          <expression>\bend\b</expression>
+          <capture number="0" name="keyword.definition.method.end"/>
+        </ends-with>
+        <subzones>
+          <zone name="parameters.block">
+            <starts-with>
+              <expression>\(</expression>
+              <capture number="0" name="delimiter.balanced.parenthesis.parameters.function.begin"/>
+            </starts-with>
+            <ends-with>
+              <expression>\)</expression>
+              <capture number="0" name="delimiter.balanced.parenthesis.parameters.function.end"/>
+            </ends-with>
+            <subzones>
+              <include collection="identifier.variable.parameter"/>
+            </subzones>
+          </zone>
+          <include syntax="name.elliottcable.Espresso.Syntax.Programming.Ruby"/>
+        </subzones>
+      </zone>
+    
       <!--
         For now, due to the intricacies of whitespace-delimited methods versus
         parenthesis-delimited methods, we have to define two nearly identical
@@ -816,7 +866,7 @@
     <collection name="container.block">
       <zone name="container.block.keyword-delimited">
         <starts-with>
-          <expression>([a-zA-Z0-9!?]*)\s*(do)</expression>
+          <expression>([a-zA-Z0-9!?]*)\s+(do)</expression>
           <capture number="1" name="method.name"/>
           <capture number="2" name="keyword.control.flow.block.begin"/>
         </starts-with>
@@ -905,8 +955,57 @@
         </subzones>
       </zone>
       <zone name="container.block.keyword-delimited.without-arguments">
-        <expression>do</expression>
+        <expression>\bdo\b</expression>
         <capture number="0" name="keyword.control.flow.block.begin"/>
+      </zone>
+    </collection>
+    
+    <collection name="container.class-module">
+      <zone name="container.class.inheritence">
+        <starts-with>
+          <expression>\b(class)\s+([A-Za-z0-9_\-?!]+)\s*(&lt;)\s*([A-Za-z0-9_\-?!]+)</expression>
+          <capture number="1" name="keyword.control.class.begin"/>
+          <capture number="2" name="identifier.variable.constant.class.name"/>
+          <capture number="3" name="delimiter.class.inherited"/>
+          <capture number="4" name="identifier.variable.constant.class.name.inherited"/>
+        </starts-with>
+        <ends-with>
+          <expression>\bend\b</expression>
+          <capture number="0" name="keyword.control.class.end"/>
+        </ends-with>
+        <subzones>
+          <include syntax="name.elliottcable.Espresso.Syntax.Programming.Ruby"/>
+        </subzones>
+      </zone>
+    
+      <zone name="container.class">
+        <starts-with>
+          <expression>\b(class)\s+([A-Za-z0-9_\-?!]+)</expression>
+          <capture number="1" name="keyword.control.class.begin"/>
+          <capture number="2" name="identifier.variable.constant.class.name"/>
+        </starts-with>
+        <ends-with>
+          <expression>\bend\b</expression>
+          <capture number="0" name="keyword.control.class.end"/>
+        </ends-with>
+        <subzones>
+          <include syntax="name.elliottcable.Espresso.Syntax.Programming.Ruby"/>
+        </subzones>
+      </zone>
+      
+      <zone name="container.module">
+        <starts-with>
+          <expression>\b(module)\s+([A-Za-z0-9_\-?!]+)</expression>
+          <capture number="1" name="keyword.control.module.begin"/>
+          <capture number="2" name="identifier.variable.constant.module.name"/>
+        </starts-with>
+        <ends-with>
+          <expression>\bend\b</expression>
+          <capture number="0" name="keyword.control.module.end"/>
+        </ends-with>
+        <subzones>
+          <include syntax="name.elliottcable.Espresso.Syntax.Programming.Ruby"/>
+        </subzones>
       </zone>
     </collection>
     
