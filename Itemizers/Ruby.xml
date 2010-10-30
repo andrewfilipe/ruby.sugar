@@ -7,7 +7,7 @@
   </recipe>
   
   <recipe name="class-variable">
-    <class>ESBaseItem</class>
+    <class>ESXHTMLItem</class>
     <selector>identifier.variable.class:has-child(name:capture(name))</selector>
   </recipe>
   
@@ -18,7 +18,7 @@
   
   
   <recipe name="class">
-    <class>ESXHTMLItem</class>
+    <class>DRClassItem</class>
     <start-selector>class.begin + name:capture(name)</start-selector>
     <end-selector>class.end</end-selector>
     
@@ -28,7 +28,7 @@
   </recipe>
   
   <recipe name="module">
-    <class>ESBaseItem</class>
+    <class>DRClassItem</class>
     <start-selector>module.begin + name:capture(name)</start-selector>
     <end-selector>module.end</end-selector>
     
@@ -37,10 +37,16 @@
     </subrecipes>
   </recipe>
   
-  <recipe name="method">
+  <recipe name="container.function">
     <class>ESBaseItem</class>
     <start-selector>method.begin + name:capture(name)</start-selector>
     <end-selector>method.end</end-selector>
+  </recipe>
+  
+  
+  <recipe name="comment.block">
+    <class>ESCommentItem</class>
+    <selector>comment.header</selector>
   </recipe>
   
 </itemizer>

@@ -20,8 +20,8 @@
       </ends-with>
     </zone>-->
   
-    <include collection="literal.array"/>
-    <include collection="literal.hash"/>
+    <include collection="literal.collection.array"/>
+    <include collection="literal.collection.dictionary"/>
     
     <include collection="delimiter"/>
     <include collection="container.expression.parenthetical"/>
@@ -546,8 +546,8 @@
       </zone>
     </collection>
     
-    <collection name="literal.array">
-      <zone name="literal.array">
+    <collection name="literal.collection.array">
+      <zone name="literal.collection.array">
         <starts-with>
           <expression>\[(?!\]\()</expression>
           <capture number="0" name="delimiter.square-bracket.array.begin"/>
@@ -564,7 +564,7 @@
         </subzones>
       </zone>
       
-      <zone name="literal.array.percent-delimited.interpolated.curly-brace">
+      <zone name="literal.collection.array.percent-delimited.interpolated.curly-brace">
         <starts-with>
           <expression>(%)(W)(\{)</expression>
           <capture number="1" name="delimiter.literal.percent-delimiter"/>
@@ -592,7 +592,7 @@
         </subzones>
       </zone>
       
-      <zone name="literal.array.percent-delimited.non-interpolated.curly-brace">
+      <zone name="literal.collection.array.percent-delimited.non-interpolated.curly-brace">
         <starts-with>
           <expression>(%)(w)(\{)</expression>
           <capture number="1" name="delimiter.literal.percent-delimiter"/>
@@ -605,7 +605,7 @@
         </ends-with>
       </zone>
       
-      <zone name="literal.array.percent-delimited.non-interpolated.parenthesis">
+      <zone name="literal.collection.array.percent-delimited.non-interpolated.parenthesis">
         <starts-with>
           <expression>(%)(w)(\()</expression>
           <capture number="1" name="delimiter.literal.percent-delimiter"/>
@@ -618,7 +618,7 @@
         </ends-with>
       </zone>
       
-      <zone name="literal.array.percent-delimited.interpolated.parenthesis">
+      <zone name="literal.collection.array.percent-delimited.interpolated.parenthesis">
         <starts-with>
           <expression>(%)(W)(\()</expression>
           <capture number="1" name="delimiter.literal.percent-delimiter"/>
@@ -647,12 +647,12 @@
       </zone>
     </collection>
     
-    <collection name="literal.hash">
+    <collection name="literal.collection.dictionary">
       <!-- 
            because hashes and blocks will be easily confused, check for equals
            before or blank space to check it is a hash. Anything else is a block!
       -->
-      <zone name="literal.hash">
+      <zone name="literal.collection.dictionary">
         <!-- really not ideal, should maybe look at changing way blocks are handled -->
         <!--<starts-with>^(.*=\s*|\s*)\{</starts-with>-->
         <starts-with>
