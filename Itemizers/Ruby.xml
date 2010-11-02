@@ -43,6 +43,18 @@
     <end-selector>method.end</end-selector>
   </recipe>
   
+  <recipe name="if-statement">
+    <class>ESBaseItem</class>
+    <start-selector>control.flow.if > condition:capture(name)</start-selector>
+    <end-selector>keyword.control.flow.end</end-selector>
+  </recipe>
+  
+  <recipe name="unless-statement">
+    <class>ESBaseItem</class>
+    <start-selector>control.flow.unless > condition:capture(name)</start-selector>
+    <end-selector>keyword.control.flow.end</end-selector>
+  </recipe>
+  
   
   <recipe name="comment.block">
     <class>ESCommentItem</class>

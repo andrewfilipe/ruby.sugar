@@ -22,6 +22,7 @@
   
     <include collection="literal.collection.array"/>
     <include collection="literal.collection.dictionary"/>
+    <include collection="flow.control"/>
     
     <include collection="delimiter"/>
     <include collection="container.expression.parenthetical"/>
@@ -726,6 +727,89 @@
       <zone name="identifier.variable.local.block">
         <expression>&amp;([a-z_][A-Za-z0-9_]*)</expression>
         <capture number="1" name="variable.name"/>
+      </zone>
+    </collection>
+    
+    
+    <!-- ========
+         = Flow =
+         ======== -->
+         
+    <collection name="flow.control">
+      <zone name="control.flow.if.one-line">
+      
+      </zone>
+    
+      <zone name="control.flow.if">
+        <starts-with>
+          <expression>(?=\bif\b)</expression>
+        </starts-with>
+        <ends-with>
+          <expression>\bend\b</expression>
+          <capture number="0" name="keyword.control.flow.end"/>
+        </ends-with>
+        <subzones>
+          <include collection="subzones.flow.if"/>
+          <!-- for the navigator :( -->
+          <zone name="condition">
+            <starts-with>
+              <expression>\bif\b</expression>
+              <capture number="0" name="keyword.control.flow.if"/>
+            </starts-with>
+            <ends-with>$</ends-with>
+            <subzones>
+              <include syntax="name.elliottcable.Espresso.Syntax.Programming.Ruby"/>
+            </subzones>
+          </zone>
+          <include syntax="name.elliottcable.Espresso.Syntax.Programming.Ruby"/>
+        </subzones>
+      </zone>
+      
+      <zone name="control.flow.unless">
+        <starts-with>
+          <expression>(?=\bunless\b)</expression>
+        </starts-with>
+        <ends-with>
+          <expression>\bend\b</expression>
+          <capture number="0" name="keyword.control.flow.end"/>
+        </ends-with>
+        <subzones>
+          <include collection="subzones.flow.unless"/>
+          <!-- for the navigator :( -->
+          <zone name="condition">
+            <starts-with>
+              <expression>\bunless\b</expression>
+              <capture number="0" name="keyword.control.flow.unless"/>
+            </starts-with>
+            <ends-with>$</ends-with>
+            <subzones>
+              <include syntax="name.elliottcable.Espresso.Syntax.Programming.Ruby"/>
+            </subzones>
+          </zone>
+          <include syntax="name.elliottcable.Espresso.Syntax.Programming.Ruby"/>
+        </subzones>
+      </zone>
+    </collection>
+    
+    <!-- Keep elsif and else separate to mix with one above -->
+    <collection name="subzones.flow.if">
+      <zone name="keyword.control.flow.then">
+        <expression>\bthen\b</expression>
+      </zone>
+      <zone name="keyword.control.flow.else">
+        <expression>\belse\b</expression>
+      </zone>
+      <zone name="keyword.control.flow.elsif">
+        <expression>\belsif\b</expression>
+      </zone>
+    </collection>
+    
+    <collection name="subzones.flow.unless">
+      <zone name="keyword.control.flow.then">
+        <expression>\bthen\b</expression>
+      </zone>
+      <zone name="keyword.control.flow.else">
+        <expression>\belse\b</expression>
       </zone>
     </collection>
     
