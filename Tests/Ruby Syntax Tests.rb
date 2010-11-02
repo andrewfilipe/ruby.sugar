@@ -5,6 +5,8 @@
 
 CONST = "help"
 
+# Shouldn't get module as comment!
+#
 module samwi_78se
 
 	class mysuperclassofdoom < someotherclass
@@ -58,6 +60,7 @@ def w00t!
 	end
 	
 end
+
 
 ###########
 # method names
@@ -263,7 +266,7 @@ data += 0.chr
 # (space as delimiter is legal Ruby: '% string ' => "string")
 if (data.size % 2) == 1
 line << ('%3s ' % str)
-
+end
 
 ###########
 # regexp

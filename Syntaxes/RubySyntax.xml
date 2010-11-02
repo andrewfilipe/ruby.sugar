@@ -237,7 +237,7 @@
       </zone>
       
       <zone name="literal.symbol">
-        <expression>:([A-Za-z0-9_\+\/\-\*\=\"\'&amp;\|@~&lt;&gt;%`]*(\[\]|\(\))*[\?\!\=]?)</expression>
+        <expression>\B:([A-Za-z0-9_\+\/\-\*\=\"\'&amp;\|@~&lt;&gt;%`]*(\[\]|\(\))*[\?\!\=]?)</expression>
         <capture number="1" name="symbol.name"/>
       </zone>
       <!-- %s(percent_delimited_symbol) -->
@@ -1080,7 +1080,7 @@
         </starts-with>
         <ends-with>
           <!-- Just having \Z causes weirdness -->
-          <expression>\n\Z</expression>
+          <expression>$</expression>
         </ends-with>
         <subzones>
           <include collection="metadata.processing.comment.code"/>
