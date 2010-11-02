@@ -14,6 +14,10 @@ def a_method(arg, &blck)
 
 end
 
+def b_method arg, &blck
+
+end
+
 puts "one liner" if x == 2
 
 if x == 1 then
@@ -37,6 +41,4 @@ a_method(2) {|i| p "hi #{i}"}
 Klass do |x, y|
   puts x, y
 end
-Klass { 
-  p "hey" 
-}
+Klass { p "hey" }
