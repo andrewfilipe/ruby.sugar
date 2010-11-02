@@ -567,14 +567,14 @@
       
       <zone name="literal.collection.array.percent-delimited.interpolated.curly-brace">
         <starts-with>
-          <expression>(%)(W)(\{)</expression>
+          <expression>(%)(W)([`~!@#$%^&amp;*-_=+\|'";:.,/?])</expression>
           <capture number="1" name="delimiter.literal.percent-delimiter"/>
           <capture number="2" name="delimiter.literal.percent-delimited.qualifier"/>
           <capture number="3" name="delimiter.balanced.percent-delimited.begin"/>
         </starts-with>
         <ends-with>
-          <expression>\}</expression>
-          <capture number="0" name="delimiter.literal.percent-delimited.end"/>
+          <expression>(\3)</expression>
+          <capture number="1" name="delimiter.literal.percent-delimited.end"/>
         </ends-with>
         <subzones>
           <zone name="array.interpolation">
@@ -595,14 +595,14 @@
       
       <zone name="literal.collection.array.percent-delimited.non-interpolated.curly-brace">
         <starts-with>
-          <expression>(%)(w)(\{)</expression>
+          <expression>(%)(w)([`~!@#$%^&amp;*-_=+\|'";:.,/?])</expression>
           <capture number="1" name="delimiter.literal.percent-delimiter"/>
           <capture number="2" name="delimiter.literal.percent-delimited.qualifier"/>
           <capture number="3" name="delimiter.balanced.percent-delimited.begin"/>
         </starts-with>
         <ends-with>
-          <expression>\}</expression>
-          <capture number="0" name="delimiter.literal.percent-delimited.end"/>
+          <expression>(\3)</expression>
+          <capture number="1" name="delimiter.literal.percent-delimited.end"/>
         </ends-with>
       </zone>
       
