@@ -1187,8 +1187,9 @@
         </subzones>
       </zone>
     </collection>
-    <!-- this only really causes problems for me
+    
     <collection name="metadata.processing.comment.code">
+      <!-- this only really causes problems for me
       <zone name="metadata.processing.comment.code">
         <starts-with>
           <expression>`</expression>
@@ -1204,6 +1205,7 @@
       </zone>
       -->
     </collection>
+    
     
     <!-- =============
          = Operators =
