@@ -736,13 +736,10 @@
          ======== -->
          
     <collection name="flow.control">
-      <zone name="control.flow.if.one-line">
       
-      </zone>
-    
       <zone name="control.flow.if">
         <starts-with>
-          <expression>(?=\bif\b)</expression>
+          <expression>^\s*(?=\bif\b)</expression>
         </starts-with>
         <ends-with>
           <expression>\bend\b</expression>
@@ -767,7 +764,7 @@
       
       <zone name="control.flow.unless">
         <starts-with>
-          <expression>(?=\bunless\b)</expression>
+          <expression>^\s*(?=\bunless\b)</expression>
         </starts-with>
         <ends-with>
           <expression>\bend\b</expression>
@@ -950,12 +947,11 @@
     <collection name="container.block">
       <zone name="container.block.keyword-delimited">
         <starts-with>
-          <expression>([a-zA-Z0-9!?]*)\s+(do)</expression>
-          <capture number="1" name="method.name"/>
-          <capture number="2" name="keyword.control.flow.block.begin"/>
+          <expression>\bdo\b</expression>
+          <capture number="0" name="keyword.control.flow.block.begin"/>
         </starts-with>
         <ends-with>
-          <expression>end</expression>
+          <expression>\bend\b</expression>
           <capture number="0" name="keyword.control.flow.block.end"/>
         </ends-with>
         <subzones>

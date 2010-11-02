@@ -14,6 +14,8 @@ def a_method(arg, &blck)
 
 end
 
+puts "one liner" if x == 2
+
 if x == 1 then
   p "hi"
 elsif y == 2 
@@ -32,7 +34,9 @@ end
 a_method(2) {|i| p "hi #{i}"}
 
 # shouldn't eat the constants!
-Klass do
-
+Klass do |x, y|
+  puts x, y
 end
-Klass { p "hey" }
+Klass { 
+  p "hey" 
+}

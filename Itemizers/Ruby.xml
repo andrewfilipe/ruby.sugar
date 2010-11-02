@@ -43,6 +43,11 @@
     <end-selector>method.end</end-selector>
   </recipe>
   
+  <recipe name="block.keyword-delimited">
+    <start-selector>container.block.keyword-delimited > block.begin</start-selector>
+    <end-selector>block.end</end-selector>
+  </recipe>
+  
   <recipe name="if-statement">
     <class>ESBaseItem</class>
     <start-selector>control.flow.if > condition:capture(name)</start-selector>
