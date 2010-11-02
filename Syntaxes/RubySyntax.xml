@@ -1127,13 +1127,19 @@
     
     <collection name="operator">
       <zone name="operator.comparator">
-        <expression>===|==|&lt;|&lt;=|&gt;|&gt;=</expression>
+        <expression>===|==|&lt;|&lt;=|&gt;|&gt;=|&lt;=&gt;</expression>
+      </zone>
+      <zone name="operator.matcher">
+        <expression>=~</expression>
       </zone>
       <zone name="operator.accessor">
         <expression>=|&lt;&lt;|&gt;&gt;</expression>
       </zone>
       <zone name="operator.mathematical">
-        <expression>\+|-|\*|/|%</expression>
+        <expression>\+|-|\*\*|\*|/|%</expression>
+      </zone>
+      <zone name="operator.bitwise">
+        <expression>&amp;|\||\^|~</expression>
       </zone>
       <zone name="operator.logical.and">
         <expression>\band\b|&amp;&amp;</expression>

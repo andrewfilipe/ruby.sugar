@@ -255,7 +255,7 @@ data += 0.chr
 %W(dude#{hey})
 %q!dude#{hey}!
 %s{dude#{hey}
-%W{dude#{hey}}
+%W(dude#{hey})
 %{woah#{hey}}
 % woah#{hey} 
 
