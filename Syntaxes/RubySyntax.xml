@@ -22,7 +22,8 @@
   
     <include collection="literal.collection.array"/>
     <include collection="literal.collection.dictionary"/>
-    <include collection="flow.control"/>
+    <include collection="control.flow"/>
+    <include collection="control.flow.exception"/>
     
     <include collection="delimiter"/>
     <include collection="container.expression.parenthetical"/>
@@ -817,7 +818,7 @@
          = Flow =
          ======== -->
          
-    <collection name="flow.control">
+    <collection name="control.flow">
       
       <zone name="control.flow.if">
         <starts-with>
@@ -889,6 +890,28 @@
       </zone>
       <zone name="keyword.control.flow.else">
         <expression>\belse\b</expression>
+      </zone>
+    </collection>
+    
+    <collection name="control.flow.exception">
+      <zone name="control.flow.exception">
+        <starts-with>
+          <expression>\bbegin\b</expression>
+          <capture number="0" name="keyword.control.flow.expection.begin"/>
+        </starts-with>
+        <ends-with>
+          <expression>\bend\b</expression>
+          <capture number="0" name="keyword.control.flow.expection.end"/>
+        </ends-with>
+        <subzones>
+          <zone name="keyword.control.flow.exception.rescue">
+            <expression>\brescue\b</expression>
+          </zone>
+          <zone name="keyword.control.flow.exception.ensure">
+            <expression>\bensure\b</expression>
+          </zone>
+          <include syntax="name.elliottcable.Espresso.Syntax.Programming.Ruby"/>
+        </subzones>
       </zone>
     </collection>
     

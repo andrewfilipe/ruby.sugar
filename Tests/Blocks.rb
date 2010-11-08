@@ -2,6 +2,7 @@
 # These should all fold properly and be grouped in
 # the navigator in a logical way!
 
+
 class Klass
   p "hey"
 end
@@ -42,3 +43,18 @@ Klass do |x, y|
   puts x, y
 end
 Klass { p "hey" }
+
+# An exception block
+begin
+
+rescue StandardError => e
+
+rescue 
+
+ensure
+
+else
+
+end
+
+
