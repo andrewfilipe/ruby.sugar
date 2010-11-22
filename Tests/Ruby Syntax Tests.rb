@@ -271,10 +271,16 @@ end
 ###########
 # regexp
 
+"stribg".gsub! /what/
+
 /matchmecaseinsensitive/i
 /matchme/
 / matchme /
 %r{matchme}
+
+/regex
+with
+break/x
 
 32/23	#division, not regexp
 

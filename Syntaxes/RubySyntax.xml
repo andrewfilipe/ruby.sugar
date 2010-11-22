@@ -385,7 +385,7 @@
       <!-- /regular expression/ -->
       <zone name="literal.regex">
         <starts-with>
-          <expression>/</expression>
+          <expression>\/(?=.*\/)</expression>
           <capture number="0" name="delimiter.balanced.slash.begin"/>
         </starts-with>
         <ends-with>
