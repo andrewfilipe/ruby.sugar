@@ -19,7 +19,7 @@
         <expression>NULL</expression>
       </ends-with>
     </zone>-->
-  
+      
     <include collection="literal.collection.array"/>
     <include collection="literal.collection.dictionary"/>
     <include collection="control.flow"/>
@@ -984,7 +984,7 @@
     <collection name="container.function">
       <zone name="container.function">      
         <starts-with>
-          <expression>\b(def)\s+([a-zA-Z_\[][\.A-Za-z0-9_\]]*[\?\!\=]?)</expression>
+          <expression>\b(def)\s+(&lt;&lt;|>>|&lt;=>|>|&lt;|\+|-|\/|\*{1,2}|%|[a-zA-Z_\[][\.A-Za-z0-9_\]]*[\?\!\=]?)</expression>
           <capture number="1" name="keyword.definition.method.begin"/>
           <capture number="2" name="name"/>
         </starts-with>
