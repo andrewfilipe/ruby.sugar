@@ -382,11 +382,104 @@
     </collection>
     
     <collection name="literal.regex">
-      <!-- /regular expression/ -->
+      
+      <!-- I'm just going to come out and do this the way Pygments does it. Because it works for that.
+           Here is a copy of their (extended) regex. And the two smaller ones.
+           
+           # After keywords or assignments
+           (?:^|(?<=[=<>-!])|
+               (?<=(?:\s|;)when\s)|
+               (?<=(?:\s|;)or\s)|
+               (?<=(?:\s|;)and\s)|
+               (?<=(?:\s|;|\.)index\s)|
+               (?<=(?:\s|;|\.)scan\s)|
+               (?<=(?:\s|;|\.)sub\s)|
+               (?<=(?:\s|;|\.)sub!\s)|
+               (?<=(?:\s|;|\.)gsub\s)|
+               (?<=(?:\s|;|\.)gsub!\s)|
+               (?<=(?:\s|;|\.)match\s)|
+               (?<=(?:\s|;|\.)if\s)|
+               (?<=(?:\s|;|\.)elsif\s)|
+               (?<=^when\s)|
+               (?<=^index\s)|
+               (?<=^scan\s)|
+               (?<=^sub\s)|
+               (?<=^gsub\s)|
+               (?<=^sub!\s)|
+               (?<=^gsub!\s)|
+               (?<=^match\s)|
+               (?<=^if\s)|
+               (?<=^elsif\s)
+           )(\s*)(\/)      #=> multiline-regex
+           >> (?:^|(?&lt;=[=&lt;&gt;-!])|
+                  (?&lt;=(?:\s|;)when\s)|
+                  (?&lt;=(?:\s|;)or\s)|
+                  (?&lt;=(?:\s|;)and\s)|
+                  (?&lt;=(?:\s|;|\.)index\s)|
+                  (?&lt;=(?:\s|;|\.)scan\s)|
+                  (?&lt;=(?:\s|;|\.)sub\s)|
+                  (?&lt;=(?:\s|;|\.)sub!\s)|
+                  (?&lt;=(?:\s|;|\.)gsub\s)|
+                  (?&lt;=(?:\s|;|\.)gsub!\s)|
+                  (?&lt;=(?:\s|;|\.)match\s)|
+                  (?&lt;=(?:\s|;|\.)if\s)|
+                  (?&lt;=(?:\s|;|\.)elsif\s)|
+                  (?&lt;=^when\s)|
+                  (?&lt;=^index\s)|
+                  (?&lt;=^scan\s)|
+                  (?&lt;=^sub\s)|
+                  (?&lt;=^gsub\s)|
+                  (?&lt;=^sub!\s)|
+                  (?&lt;=^gsub!\s)|
+                  (?&lt;=^match\s)|
+                  (?&lt;=^if\s)|
+                  (?&lt;=^elsif\s)
+              )(\s*)(\/)
+           >> (?:^|(?&lt;=[=&lt;&gt;-!])|(?&lt;=(?:\s|;)when\s)|(?&lt;=(?:\s|;)or\s)|(?&lt;=(?:\s|;)and\s)|(?&lt;=(?:\s|;|\.)index\s)|(?&lt;=(?:\s|;|\.)scan\s)|(?&lt;=(?:\s|;|\.)sub\s)|(?&lt;=(?:\s|;|\.)sub!\s)|(?&lt;=(?:\s|;|\.)gsub\s)|(?&lt;=(?:\s|;|\.)gsub!\s)|(?&lt;=(?:\s|;|\.)match\s)|(?&lt;=(?:\s|;|\.)if\s)|(?&lt;=(?:\s|;|\.)elsif\s)|(?&lt;=^when\s)|(?&lt;=^index\s)|(?&lt;=^scan\s)|(?&lt;=^sub\s)|(?&lt;=^gsub\s)|(?&lt;=^sub!\s)|(?&lt;=^gsub!\s)|(?&lt;=^match\s)|(?&lt;=^if\s)|(?&lt;=^elsif\s))(\s*)(\/)
+                   
+           
+           # In method calls
+           (?<=\(|,)\/     #=> multiline-regex
+           >> (?&lt;=\(|,)\/
+           
+           # Funny no whitespace rule
+           (\s+)(\/[^\s=]) #=> multiline-regex
+      
+      -->
+      
       <zone name="literal.regex">
         <starts-with>
-          <expression>\/(?=.*\/)</expression>
-          <capture number="0" name="delimiter.balanced.slash.begin"/>
+          <expression>(?:^|(?&lt;=[=&lt;&gt;-!])|(?&lt;=(?:\s|;)when\s)|(?&lt;=(?:\s|;)or\s)|(?&lt;=(?:\s|;)and\s)|(?&lt;=(?:\s|;|\.)index\s)|(?&lt;=(?:\s|;|\.)scan\s)|(?&lt;=(?:\s|;|\.)sub\s)|(?&lt;=(?:\s|;|\.)sub!\s)|(?&lt;=(?:\s|;|\.)gsub\s)|(?&lt;=(?:\s|;|\.)gsub!\s)|(?&lt;=(?:\s|;|\.)match\s)|(?&lt;=(?:\s|;|\.)if\s)|(?&lt;=(?:\s|;|\.)elsif\s)|(?&lt;=^when\s)|(?&lt;=^index\s)|(?&lt;=^scan\s)|(?&lt;=^sub\s)|(?&lt;=^gsub\s)|(?&lt;=^sub!\s)|(?&lt;=^gsub!\s)|(?&lt;=^match\s)|(?&lt;=^if\s)|(?&lt;=^elsif\s))(\s*)(\/)</expression>
+        </starts-with>
+        <ends-with>
+          <expression>(/)([iomxneus]*)</expression>
+          <capture number="1" name="delimiter.balanced.slahs.end"/>
+          <capture number="2" name="literal.regex.modifier"/>
+        </ends-with>
+        <subzones>
+          <include syntax="name.elliottcable.Espresso.Syntax.Expression.Regex"/>
+        </subzones>
+      </zone>
+      
+      <zone name="literal.regex">
+        <starts-with>
+          <expression>(?&lt;=\(|,)(\/)</expression>
+          <capture number="3" name="delimiter.balanced.slash.begin"/>
+        </starts-with>
+        <ends-with>
+          <expression>(/)([iomxneus]*)</expression>
+          <capture number="1" name="delimiter.balanced.slahs.end"/>
+          <capture number="2" name="literal.regex.modifier"/>
+        </ends-with>
+        <subzones>
+          <include syntax="name.elliottcable.Espresso.Syntax.Expression.Regex"/>
+        </subzones>
+      </zone>
+      
+      <zone name="literal.regex">
+        <starts-with>
+          <expression>(\s+)((\/)[^\s=])</expression>
+          <capture number="3" name="delimiter.balanced.slash.begin"/>
         </starts-with>
         <ends-with>
           <expression>(/)([iomxneus]*)</expression>
@@ -397,6 +490,7 @@
           <include syntax="name.elliottcable.Espresso.Syntax.Expression.Regex"/>
         </subzones>
       </zone>
+
       <zone name="literal.regex.percent-delimited.interpolated.parenthesis">
         <starts-with>
           <expression>(%)(r)(\()</expression>

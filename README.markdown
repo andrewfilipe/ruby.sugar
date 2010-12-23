@@ -19,10 +19,11 @@ And then link it to your syntaxes directory:
     
     mkdir -p "~/Library/Application Support/Espresso/Sugars/"
     ln -s "$(pwd)/Ruby.sugar" "/Users/$(whoami)/Library/Application Support/Espresso/Sugars/"
-    
+
 Dependencies
 ------------
 - [Regex.sugar](http://github.com/elliottcable/Regex.sugar "elliottcable's Regex.sugar on GitHub")
+
 
 More information
 ----------------

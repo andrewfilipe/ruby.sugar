@@ -22,14 +22,14 @@ end
 
 puts "3: ============="
 p begin
-  # Here, it's invalid, the first slash is a division, as is hte second.
+  # Here, it's invalid, the first slash is a division, as is the second.
   foo = bar / abc/ # (bar / abc / 123)
   123 # Something to divide is necessary!
 end
 
 puts "4: ============="
 p begin
-  # Here, it's invalid, the first slash is a division, as is hte second.
+  # Here, it's invalid, the first slash is a division, as is the second.
   foo = bar / abc / # (bar / abc / 123)
   123 # Something to divide is necessary!
 end
