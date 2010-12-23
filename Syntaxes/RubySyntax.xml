@@ -24,6 +24,7 @@
     <include collection="literal.collection.dictionary"/>
     <include collection="control.flow"/>
     <include collection="control.flow.exception"/>
+    <include collection="control.flow.case"/>
     
     <include collection="delimiter"/>
     <include collection="container.expression.parenthetical"/>
@@ -1009,6 +1010,22 @@
       </zone>
     </collection>
     
+    <collection name="control.flow.case">
+      <zone name="control.flow.case">
+        <starts-with>
+          <expression>\bcase\b</expression>
+          <capture number="0" name="keyword.control.flow.case"/>
+        </starts-with>
+        <ends-with>
+          <expression>\bend\b</expression>
+          <capture number="0" name="keyword.control.flow.end"/>
+        </ends-with>
+        <subzones>
+          <include syntax="name.elliottcable.Espresso.Syntax.Programming.Ruby"/>
+        </subzones>
+      </zone>
+    </collection>
+    
     <!-- ===========
          = Keyword =
          =========== -->
@@ -1135,7 +1152,7 @@
       
       <zone name="container.block.bracket-delimited">
         <starts-with>
-          <expression>([a-zA-Z0-9!?()]+)\s*(\{)</expression>
+          <expression>(?&lt;=[a-zA-Z0-9!?()]+\s*)(\{)</expression>
           <capture number="1" name="method.name"/>
           <capture number="2" name="delimiter.balanced.curly-brace.begin"/>
         </starts-with>

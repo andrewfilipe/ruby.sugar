@@ -1,21 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<itemizer>
-
-  <recipe name="constant">
-    <class>ESBaseItem</class>
-    <selector>identifier.variable.constant:has-child(name:capture(name))</selector>
-  </recipe>
-  
-  <recipe name="class-variable">
-    <class>ESXHTMLItem</class>
-    <selector>identifier.variable.class:has-child(name:capture(name))</selector>
-  </recipe>
-  
-  <recipe name="instance-variable">
-    <class>ESBaseItem</class>
-    <selector>identifier.variable.instance:has-child(name:capture(name))</selector>
-  </recipe>
-  
+<itemizer> 
   
   <recipe name="class">
     <class>DRClassItem</class>
@@ -41,23 +25,49 @@
     <class>ESBaseItem</class>
     <start-selector>method.begin + name:capture(name)</start-selector>
     <end-selector>method.end</end-selector>
+    
+    <subrecipes>
+      <include-root-recipes/>
+    </subrecipes>
   </recipe>
   
   <recipe name="block.keyword-delimited">
     <start-selector>container.block.keyword-delimited > block.begin</start-selector>
     <end-selector>block.end</end-selector>
+    
+    <subrecipes>
+      <include-root-recipes/>
+    </subrecipes>
   </recipe>
   
   <recipe name="if-statement">
     <class>ESBaseItem</class>
     <start-selector>control.flow.if > condition:capture(name)</start-selector>
     <end-selector>keyword.control.flow.end</end-selector>
+    
+    <subrecipes>
+      <include-root-recipes/>
+    </subrecipes>
   </recipe>
   
   <recipe name="unless-statement">
     <class>ESBaseItem</class>
     <start-selector>control.flow.unless > condition:capture(name)</start-selector>
     <end-selector>keyword.control.flow.end</end-selector>
+    
+    <subrecipes>
+      <include-root-recipes/>
+    </subrecipes>
+  </recipe>
+  
+  <recipe name="case-statement">
+    <class>ESBaseItem</class>
+    <start-selector>control.flow.case</start-selector>
+    <end-selector>keyword.control.flow.end</end-selector>
+    
+    <subrecipes>
+      <include-root-recipes/>
+    </subrecipes>
   </recipe>
   
   
