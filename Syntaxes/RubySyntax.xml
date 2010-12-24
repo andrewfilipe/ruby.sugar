@@ -1106,7 +1106,7 @@
         <subzones>
           <zone name="parameters.block">
             <starts-with>
-              <expression>\(</expression>
+              <expression>(?&lt;=(def\s+.+))\(</expression>
               <capture number="0" name="delimiter.balanced.parenthesis.parameters.function.begin"/>
             </starts-with>
             <ends-with>
