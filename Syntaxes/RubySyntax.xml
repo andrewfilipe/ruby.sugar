@@ -991,11 +991,11 @@
     <collection name="control.flow.exception">
       <zone name="control.flow.exception">
         <starts-with>
-          <expression>\bbegin\b</expression>
+          <expression>(?&lt;=[^.])\bbegin\b</expression>
           <capture number="0" name="keyword.control.flow.expection.begin"/>
         </starts-with>
         <ends-with>
-          <expression>\bend\b</expression>
+          <expression>(?&lt;=[^.])\bend\b</expression>
           <capture number="0" name="keyword.control.flow.expection.end"/>
         </ends-with>
         <subzones>
