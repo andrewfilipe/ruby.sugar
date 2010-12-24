@@ -479,7 +479,7 @@
       
       <zone name="literal.regex">
         <starts-with>
-          <expression>(\s+)((\/)[^\s=])</expression>
+          <expression>(\s+)(\/)(?![\s=])</expression>
           <capture number="3" name="delimiter.balanced.slash.begin"/>
         </starts-with>
         <ends-with>
